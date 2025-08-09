@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Raksha Bandhan Surprise</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap');
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        -webkit-tap-highlight-color: rgba(253, 121, 168, 0.3);
+        background-color: #0d0d0d;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      /* Custom properties for easy theme management */
+      :root {
+        --bg-gradient: linear-gradient(135deg, #0d0d0d 0%, #1a1a2e 25%, #16213e 100%);
+        --pink-light: #fd79a8;
+        --pink-dark: #e84393;
+        --blue-light: #74b9ff;
+      }
+      body {
+        background: var(--bg-gradient);
+        color: white;
+        overflow-x: hidden;
+      }
+
+      /* Animations */
+      @keyframes pulse {
+        50% { opacity: .5; }
+      }
+      @keyframes shake {
+        10%, 90% { transform: translate3d(-1px, 0, 0); }
+        20%, 80% { transform: translate3d(2px, 0, 0); }
+        30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+        40%, 60% { transform: translate3d(4px, 0, 0); }
+      }
+      @keyframes fade-in-scale {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+      }
+      
+      .animate-shake { animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both; }
+      .animate-fade-in-scale { animation: fade-in-scale 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+
+      /* Custom utility classes if needed */
+      .bg-size-200 { background-size: 200% 200%; }
+      .bg-pos-0 { background-position: 0% 0%; }
+      .hover\:bg-pos-100:hover { background-position: 100% 100%; }
+      .text-shadow { text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+      .text-shadow-md { text-shadow: 0 4px 8px rgba(0,0,0,0.4); }
+
+      /* Prevent zoom on input focus on iOS */
+      @media (max-width: 768px) {
+        input[type="password"], input[type="text"] {
+          font-size: 16px !important;
+        }
+      }
+    </style>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-gradient-to-br from-[#0d0d0d] via-[#1a1a2e] to-[#16213e] text-white overflow-x-hidden">
+
+    <!-- Password Screen -->
+    <div id="password-screen" class="flex items-center justify-center min-h-screen p-4">
+      <div class="relative w-full max-w-sm mx-auto p-6 sm:p-8 bg-slate-900/85 backdrop-blur-xl rounded-3xl shadow-2xl shadow-pink-500/20 border-2 border-pink-500/40">
+        <div class="absolute -inset-0.5 bg-gradient-to-r from-pink-600 to-blue-400 rounded-3xl blur opacity-50 animate-pulse"></div>
+        <div class="relative text-center">
+            <h1 class="text-2xl sm:text-3xl font-bold text-pink-300 mb-3 text-shadow flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                </svg>
+                Guess the passkey
+            </h1>
+            <p class="text-gray-300 text-sm mb-6 leading-relaxed">
+              before you get in to next step just want to give exersise to your brain to remind you some thing  
+              Just type the name I used to call you.
+            </p>
+            <input id="password-input" type="password" placeholder="Enter pass key" class="w-full max-w-xs px-5 py-4 text-center text-white bg-white/10 backdrop-blur-sm border-2 border-pink-500/60 rounded-full outline-none transition-all duration-300 focus:border-pink-400 focus:ring-2 focus:ring-pink-400/50 focus:scale-105 placeholder-white/70">
+            <p id="error-message" class="mt-4 text-sm text-red-400 bg-red-500/10 border border-red-500/30 px-3 py-2 rounded-xl" style="display: none;"></p>
+            <button id="enter-button" class="w-full max-w-[200px] mt-6 py-4 px-10 bg-gradient-to-r from-black via-pink-500 to-pink-600 bg-size-200 bg-pos-0 hover:bg-pos-100 text-white font-bold text-base rounded-full transition-all duration-500 shadow-lg shadow-pink-500/30 hover:shadow-xl hover:shadow-pink-500/50 hover:-translate-y-1 hover:scale-105 active:scale-95">
+                Enter
+            </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wrong Password Screen -->
+    <div id="wrong-password-page" style="display:none;" class="flex items-center justify-center min-h-screen p-4">
+      <div class="relative w-full max-w-sm mx-auto p-6 sm:p-8 bg-slate-900/90 backdrop-blur-2xl rounded-3xl shadow-2xl shadow-pink-500/30 border-2 border-pink-500/50 animate-shake">
+        <div class="absolute -inset-0.5 bg-gradient-to-r from-pink-600 to-blue-400 rounded-3xl blur opacity-75 animate-pulse"></div>
+        <div class="relative text-center">
+          <div class="mb-6">
+            <img id="wrong-pass-img" src="wrong-pass.jpg" alt="Thoughtful face" class="w-36 h-36 mx-auto rounded-full object-cover border-4 border-pink-500 shadow-lg shadow-pink-500/40 animate-pulse">
+          </div>
+          <h1 class="text-2xl font-bold text-pink-300 mb-2">🚫 Oops! Wrong Password </h1>
+          <h2 class="text-xl font-semibold text-blue-300 mb-4">🤔 Think Again! ra chinnoda</h2>
+          <p class="text-gray-300 text-sm mb-4">just remember that what I used it to contact</p>
+          <div class="p-4 bg-gradient-to-r from-pink-500/20 to-blue-500/10 rounded-xl border-l-4 border-pink-400 italic text-left my-5 backdrop-blur-sm">
+            <p class="text-sm text-gray-200">
+                💡 <span class="font-semibold">Hint:</span> It's something I used to call you always
+            </p>
+          </div>
+          <button id="retry-button" class="w-full max-w-[200px] mt-4 py-3 px-8 bg-gradient-to-r from-pink-600 to-pink-500 text-white font-bold rounded-full transition-all duration-300 shadow-lg shadow-pink-500/30 hover:shadow-xl hover:shadow-pink-500/50 hover:-translate-y-1 hover:scale-105 active:scale-95">
+            🔄 Try Again
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Surprise Content -->
+    <div id="surprise-content" style="display:none;">
+       <div class="bg-[#0d0d0d]">
+        <header class="fixed top-0 left-0 right-0 z-40 p-5 bg-gradient-to-r from-pink-600/80 to-pink-400/70 backdrop-blur-xl shadow-lg shadow-pink-600/20 rounded-b-3xl border-b-2 border-white/20">
+          <h1 class="text-3xl font-extrabold text-center text-white text-shadow-md">
+            Happy Raksha Bandhan, maa!💖
+          </h1>
+        </header>
+        
+        <!-- Surprise Content section -->
+        <section class="relative min-h-[200vh] w-full">
+          <div class="sticky top-0 h-screen w-full overflow-hidden">
+            <img id="main-photo" src="main.jpg" alt="Raksha Bandhan" class="absolute top-0 left-0 w-full h-full object-cover object-center z-10">
+            <div id="message-box" class="fixed bottom-0 left-0 right-0 z-30 p-10 text-center text-lg leading-loose backdrop-blur-md border-t-2 border-pink-500/30 transition-all duration-300 transform translate-y-full">
+              <span class="absolute -top-7 left-1/2 -translate-x-1/2 bg-gradient-to-r from-laveder-500 to-lavender-600 w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-lg border-2 border-black/30">💕</span>
+              <p class="max-w-3xl mx-auto text-white/90">
+                <p>Dear Chellamma,</p>
+                Wishing you a very happy Raksha Bandhan, ra. I’m just remembering all the moments we’ve shared over the last few years. As I’ve always said, you are the only sister I feel truly connected to.
+                Yes, there were some clashes, but apart form those situations. I really miss those chilling days where we all sat together, made fun of each other, laughed, cried, and did all sorts of crazy things. missing those days with reminding all those moments in mind.
+                Just want to remind you that you’re my one and only little, cute, jelly-brain sister — and I’ll never let go of the memories I have with you...!💖
+
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="relative z-20 bg-gradient-to-b from-slate-900/80 to-[#0d0d0d] backdrop-blur-lg rounded-t-3xl pt-16 pb-12 px-4">
+          <h2 class="text-3xl font-bold text-center text-pink-400 mb-8">
+            Some Beautiful Memories 📸
+          </h2>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-5xl mx-auto" id="gallery-grid">
+              <!-- Gallery images will be populated by JS -->
+          </div>
+        </section>
+      </div>
+    </div>
+    
+    <!-- Full-screen Image Modal -->
+    <div id="image-modal" style="display:none;" class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 animate-fade-in-scale">
+        <button id="modal-close-button" class="absolute top-4 right-4 sm:top-6 sm:right-6 text-white text-5xl font-bold hover:text-pink-400 transition-colors z-10" aria-label="Close image view">
+        &times;
+        </button>
+        <img id="modal-image" alt="Full screen memory" class="max-w-full max-h-full object-contain rounded-lg shadow-2xl">
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- DATA ---
+        const MAIN_PHOTO_DATA = `/main.jpg`;
+        const WRONG_PASSWORD_IMAGE_DATA = `wrong-pass.jpg`;
+        
+        // --- ELEMENT SELECTORS ---
+        const passwordScreen = document.getElementById('password-screen');
+        const wrongPasswordScreen = document.getElementById('wrong-password-page');
+        const surpriseContent = document.getElementById('surprise-content');
+        const passwordInput = document.getElementById('password-input');
+        const enterButton = document.getElementById('enter-button');
+        const errorMessage = document.getElementById('error-message');
+        const retryButton = document.getElementById('retry-button');
+        const messageBox = document.getElementById('message-box');
+        const imageModal = document.getElementById('image-modal');
+        const modalImage = document.getElementById('modal-image');
+        const modalCloseButton = document.getElementById('modal-close-button');
+
+        // --- FUNCTIONS ---
+        function checkPassword() {
+            const input = passwordInput.value.trim().toLowerCase();
+            if (input === "jellyfish") {
+                passwordScreen.style.display = "none";
+                surpriseContent.style.display = "block";
+                handleScrollAnimation();
+            } else if (input === "") {
+                showError("❌ Please enter a password!");
+            } else {
+                passwordScreen.style.display = "none";
+                wrongPasswordScreen.style.display = "flex";
+            }
+        }
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = "block";
+            passwordInput.classList.add('border-red-500');
+            setTimeout(() => {
+                passwordInput.classList.remove('border-red-500');
+            }, 2000);
+        }
+
+        function returnToPassword() {
+            wrongPasswordScreen.style.display = "none";
+            passwordScreen.style.display = "flex";
+            passwordInput.value = "";
+            errorMessage.style.display = "none";
+            errorMessage.textContent = "";
+            passwordInput.focus();
+        }
+
+        // Add gallery images data
+        const galleryImages = [
+            'mem1.jpg',
+            'mem2.jpg',
+            'mem3.jpg',
+            'mem4.jpg'
+        ];
+
+        // Initialize gallery
+        const galleryGrid = document.getElementById('gallery-grid');
+        galleryImages.forEach((src, index) => {
+            const galleryItem = document.createElement('div');
+            galleryItem.className = 'aspect-square cursor-pointer group';
+            
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = `Memory ${index + 1}`;
+            img.className = 'w-full h-full object-cover rounded-xl border-2 border-pink-400/50 shadow-lg shadow-pink-500/20 transition-all duration-300 group-hover:scale-105 group-hover:rotate-[-3deg] group-hover:shadow-2xl group-hover:shadow-pink-400/40';
+            
+            galleryItem.appendChild(img);
+            galleryItem.onclick = () => openModal(src);
+            galleryGrid.appendChild(galleryItem);
+        });
+
+        let ticking = false;
+        function handleScrollAnimation() {
+            if (!messageBox) return;
+
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const scrollProgress = Math.min(scrollY / windowHeight, 1);
+            
+            // Move message box from bottom to top of viewport
+            const startY = 100; // Start position (100% = hidden below)
+            const endY = -100;  // End position (-100% = hidden above)
+            const range = startY - endY;
+            const currentY = startY - (scrollProgress * range);
+            
+            messageBox.style.transform = `translateY(${currentY}%)`;
+            
+            // Adjust opacity based on position
+            if (scrollProgress < 0.1) {
+                // Fade in at start
+                messageBox.style.opacity = scrollProgress * 10;
+            } else if (scrollProgress > 0.8) {
+                // Fade out at end
+                messageBox.style.opacity = 1 - ((scrollProgress - 0.8) * 5);
+            } else {
+                // Fully visible in between
+                messageBox.style.opacity = 1;
+            }
+
+            // Show memory section after message passes
+            const memorySection = document.querySelector('.relative.z-20');
+            if (memorySection) {
+                memorySection.style.opacity = scrollProgress > 0.9 ? 1 : 0;
+                memorySection.style.visibility = scrollProgress > 0.9 ? 'visible' : 'hidden';
+            }
+        }
+
+        function openModal(src) {
+            if (!imageModal || !modalImage) return;
+            modalImage.src = src;
+            imageModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            if (!imageModal) return;
+            imageModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // --- EVENT LISTENERS ---
+        enterButton.addEventListener('click', checkPassword);
+        retryButton.addEventListener('click', returnToPassword); // Add this line
+        
+        passwordInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                checkPassword();
+            }
+        });
+
+        passwordInput.addEventListener('input', () => {
+            if (errorMessage.style.display !== 'none') {
+                errorMessage.style.display = 'none';
+                errorMessage.textContent = '';
+            }
+        });
+
+        window.addEventListener('scroll', () => {
+             if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    handleScrollAnimation();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+        
+        // Modal listeners
+        imageModal.addEventListener('click', closeModal);
+        modalCloseButton.addEventListener('click', closeModal);
+        modalImage.addEventListener('click', (e) => e.stopPropagation()); // Prevent closing when clicking image
+        
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // --- INITIALIZATION ---
+        passwordInput.focus();
+
+    });
+    </script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
+</html>
+</body>
+</html>
