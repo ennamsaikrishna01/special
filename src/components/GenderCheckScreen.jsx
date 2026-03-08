@@ -18,14 +18,13 @@ export default function GenderCheckScreen({ onSuccess, onBack }) {
     const handleYesHover = () => {
         if (jumpCount >= 3) return // Stop jumping after 3 times
 
-        if (!containerRef.current || !yesBtnRef.current) return
+        if (!yesBtnRef.current) return
 
-        const containerRect = containerRef.current.getBoundingClientRect()
         const btnRect = yesBtnRef.current.getBoundingClientRect()
 
-        // Generate random position within container bounds
-        const maxX = containerRect.width - btnRect.width - 20
-        const maxY = containerRect.height - btnRect.height - 20
+        // Generate random position within viewport bounds
+        const maxX = window.innerWidth - btnRect.width - 20
+        const maxY = window.innerHeight - btnRect.height - 20
 
         const randomX = Math.max(10, Math.floor(Math.random() * maxX))
         const randomY = Math.max(10, Math.floor(Math.random() * maxY))
@@ -33,7 +32,7 @@ export default function GenderCheckScreen({ onSuccess, onBack }) {
         setYesPos({
             top: `${randomY}px`,
             left: `${randomX}px`,
-            absolute: true
+            isFixed: true
         })
         setJumpCount(prev => prev + 1)
     }
@@ -47,7 +46,7 @@ export default function GenderCheckScreen({ onSuccess, onBack }) {
     }
 
     return (
-        <div className="flex items-center justify-center min-h-screen p-4 relative" ref={containerRef}>
+        <div className="flex items-center justify-center min-h-screen p-4 relative">
             {/* Back Button */}
             {onBack && (
                 <button
@@ -90,8 +89,9 @@ export default function GenderCheckScreen({ onSuccess, onBack }) {
                         <button
                             ref={yesBtnRef}
                             onMouseEnter={handleYesHover}
+                            onTouchStart={handleYesHover}
                             onClick={handleYesClick}
-                            style={yesPos.absolute ? { position: 'absolute', top: yesPos.top, left: yesPos.left, margin: 0 } : {}}
+                            style={yesPos.isFixed ? { position: 'fixed', top: yesPos.top, left: yesPos.left, margin: 0, zIndex: 100 } : {}}
                             className="w-full max-w-[200px] py-3 mt-4 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-bold rounded-full transition-all duration-200 shadow-md shadow-pink-500/20 z-50 pointer-events-auto"
                         >
                             Yes
