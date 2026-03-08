@@ -51,7 +51,7 @@ export default function SecondSurpriseContent({ onBack }) {
       <div className="relative z-10 min-h-screen flex flex-col">
 
         {/* Header */}
-        <header className="sticky top-0 z-40 p-4 sm:p-5 bg-[#050914]/40 backdrop-blur-xl shadow-lg shadow-black/30 border-b border-white/5 flex items-center justify-center min-h-[70px]">
+        <header className="fixed top-0 left-0 w-full z-40 p-4 sm:p-5 bg-[#050914]/40 backdrop-blur-xl shadow-lg shadow-black/30 border-b border-white/5 flex items-center justify-center min-h-[70px]">
           {/* Back Button */}
           {onBack && (
             <button
@@ -70,7 +70,7 @@ export default function SecondSurpriseContent({ onBack }) {
         </header>
 
         {/* Scrollable Content */}
-        <div className="flex-1 px-4 py-8 sm:py-16 max-w-4xl mx-auto w-full flex flex-col items-center gap-12 sm:gap-16">
+        <div className="flex-1 px-4 py-8 sm:py-16 max-w-4xl mx-auto w-full flex flex-col items-center gap-12 sm:gap-16 mt-[70px]">
 
           {/* Note Section (Glassmorphism) */}
           <div className="bg-white/5 backdrop-blur-xl rounded-3xl p-6 sm:p-10 border border-white/10 w-full text-center relative overflow-hidden group hover:bg-white/10 transition-colors duration-500">
@@ -96,7 +96,8 @@ export default function SecondSurpriseContent({ onBack }) {
                 <iframe
                   src="https://drive.google.com/file/d/1zk7HOGxYrO3W8RbFhpa99BApxHHG9mL0/preview"
                   className="w-full h-full border-0"
-                  allow="autoplay"
+                  allow="autoplay; fullscreen"
+                  allowFullScreen
                   title="Special Video"
                 >
                 </iframe>

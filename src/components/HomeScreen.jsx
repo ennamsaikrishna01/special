@@ -12,8 +12,8 @@ export default function HomeScreen({ onNavigate }) {
         },
         {
             id: 'womensday',
-            emoji: '🌸',
-            title: 'Womens Day Surprise',
+            emoji: '👑',
+            title: 'Womens Day ',
             subtitle: 'Specially made for you',
             gradient: 'from-blue-600/50 to-cyan-600/40',
             border: 'border-blue-500/30',
@@ -21,9 +21,9 @@ export default function HomeScreen({ onNavigate }) {
             available: true,
         },
         {
-            id: 'coming-soon-2',
+            id: 'coming-soon..',
             emoji: '✨',
-            title: 'Coming Soon',
+            title: 'Coming Soon..',
             subtitle: 'More memories loading…',
             gradient: 'from-violet-600/50 to-pink-600/40',
             border: 'border-violet-500/30',
