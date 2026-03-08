@@ -1,6 +1,8 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 
 export default function SecondSurpriseContent({ onBack }) {
+  const [videoUnlocked, setVideoUnlocked] = useState(false)
+
   // Generate random stars only once per render
   const stars = useMemo(() => {
     return Array.from({ length: 70 }).map((_, i) => ({
@@ -91,16 +93,34 @@ export default function SecondSurpriseContent({ onBack }) {
           <div className="w-full flex flex-col items-center gap-4">
 
             {/* Main Video Section (Glassmorphism container) */}
-            <div className="w-full max-w-3xl bg-white/5 backdrop-blur-md rounded-3xl p-2 sm:p-4 border border-white/10 relative">
-              <div className="w-full bg-black rounded-2xl overflow-hidden shadow-inner border border-white/5 mx-auto relative z-10 aspect-video">
-                <iframe
-                  src="https://drive.google.com/file/d/1zk7HOGxYrO3W8RbFhpa99BApxHHG9mL0/preview"
-                  className="w-full h-full border-0"
-                  allow="autoplay; fullscreen"
-                  allowFullScreen
-                  title="Special Video"
-                >
-                </iframe>
+            <div className="w-full max-w-3xl bg-white/5 backdrop-blur-md rounded-3xl p-2 sm:p-4 border border-white/10 relative mt-8">
+              <div className="w-full bg-black/40 rounded-2xl overflow-hidden shadow-inner border border-white/5 mx-auto relative z-10 aspect-video flex flex-col items-center justify-center">
+
+                {!videoUnlocked ? (
+                  <div className="flex flex-col items-center justify-center p-8 text-center animate-fade-in-scale h-full">
+                    <span className="text-5xl sm:text-6xl mb-4 drop-shadow-lg">🎧</span>
+                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">Use Earphones!</h3>
+                    <p className="text-blue-200/80 max-w-sm mb-6 text-sm sm:text-base">
+                      For the best experience completely, please use earphones before watching this video. You'll thank me later. 😉
+                    </p>
+                    <button
+                      onClick={() => setVideoUnlocked(true)}
+                      className="px-8 py-3 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-400 hover:to-purple-500 text-white font-bold rounded-full shadow-lg shadow-purple-500/30 transition-all hover:scale-105 active:scale-95 border border-white/20"
+                    >
+                      I'm Ready! ▶️
+                    </button>
+                  </div>
+                ) : (
+                  <iframe
+                    src="https://drive.google.com/file/d/1zk7HOGxYrO3W8RbFhpa99BApxHHG9mL0/preview?vq=hd1080"
+                    className="w-full h-full border-0 animate-fade-in"
+                    allow="autoplay; fullscreen"
+                    allowFullScreen
+                    title="Special Video"
+                  >
+                  </iframe>
+                )}
+
               </div>
             </div>
             <p className="text-white/70 italic text-sm mt-4">video kavalra....? download cheyaradu try cheyaku</p>
