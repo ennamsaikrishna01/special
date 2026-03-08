@@ -37,7 +37,7 @@ export default function HomeScreen({ onNavigate }) {
             {/* ── Scrollable Landing Image ── */}
             <div className="relative w-full">
                 <img
-                    src="main.jpg"
+                    src="home.jpeg"
                     alt="Special memories"
                     className="w-full h-[80vh] sm:h-auto object-cover object-top block"
                 />

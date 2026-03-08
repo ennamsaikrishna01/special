@@ -58,7 +58,7 @@ export default function SecondSurpriseContent({ onBack }) {
           {onBack && (
             <button
               onClick={onBack}
-              className="absolute left-4 sm:left-6 flex items-center gap-1 sm:gap-2 text-blue-200 hover:text-white text-sm sm:text-base font-semibold transition-transform hover:-translate-x-1 active:scale-95 bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-full border border-white/10"
+              className="absolute left-4 sm:left-6 flex items-center gap-1 sm:gap-2 text-blue-200 hover:text-white text-sm sm:text-base font-semibold transition-transform hover:-translate-x-1 active:scale-95 bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-full border border-white/10 z-50 pointer-events-auto"
               aria-label="Back to home"
             >
               <span aria-hidden="true">←</span>
@@ -113,9 +113,11 @@ export default function SecondSurpriseContent({ onBack }) {
                 ) : (
                   <iframe
                     src="https://drive.google.com/file/d/1zk7HOGxYrO3W8RbFhpa99BApxHHG9mL0/preview?vq=hd1080"
-                    className="w-full h-full border-0 animate-fade-in"
-                    allow="autoplay; fullscreen"
+                    className="w-full h-full border-0 animate-fade-in z-20"
+                    allow="autoplay; fullscreen; encrypted-media"
                     allowFullScreen
+                    webkitallowfullscreen="true"
+                    mozallowfullscreen="true"
                     title="Special Video"
                   >
                   </iframe>
