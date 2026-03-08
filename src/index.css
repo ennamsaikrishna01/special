@@ -1,0 +1,163 @@
+/* ============================================================
+   Global CSS — Raksha Bandhan Surprise App
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap');
+
+/* CSS Variables */
+:root {
+  --bg-gradient: linear-gradient(135deg, #0d0d0d 0%, #1a1a2e 25%, #16213e 100%);
+  --pink-light: #fd79a8;
+  --pink-dark: #e84393;
+  --blue-light: #74b9ff;
+}
+
+/* Base */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--bg-gradient);
+  color: white;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: rgba(253, 121, 168, 0.3);
+}
+
+/* Prevent zoom on input focus on iOS */
+@media (max-width: 768px) {
+
+  input[type="password"],
+  input[type="text"] {
+    font-size: 16px !important;
+  }
+}
+
+/* ============================================================
+   Animations
+   ============================================================ */
+
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes shake {
+
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+@keyframes fade-in-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-shake {
+  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+.animate-fade-in-scale {
+  animation: fade-in-scale 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes starMove {
+  from {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(-1000px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes moonGlow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 40px 10px rgba(255, 255, 230, 0.2), 0 0 100px 20px rgba(255, 255, 255, 0.1);
+  }
+
+  50% {
+    box-shadow: 0 0 60px 20px rgba(255, 255, 230, 0.3), 0 0 130px 40px rgba(255, 255, 255, 0.2);
+  }
+}
+
+.galaxy-moon {
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fffde7, #fff9c4, #e0e0e0);
+  animation: moonGlow 5s ease-in-out infinite;
+}
+
+.galaxy-star {
+  position: absolute;
+  background-color: white;
+  border-radius: 50%;
+  opacity: 0;
+  animation: starMove linear infinite;
+}
+
+/* ============================================================
+   Custom Utility Classes (supplement Tailwind CDN)
+   ============================================================ */
+
+.bg-size-200 {
+  background-size: 200% 200%;
+}
+
+.bg-pos-0 {
+  background-position: 0% 0%;
+}
+
+.hover\:bg-pos-100:hover {
+  background-position: 100% 100%;
+}
+
+.text-shadow {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.text-shadow-md {
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
