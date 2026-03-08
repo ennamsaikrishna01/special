@@ -7,10 +7,10 @@ export default function SurpriseContent({ onBack }) {
     const [modalSrc, setModalSrc] = useState(null)
 
     const galleryImages = [
-        '/mem1.jpg',
-        '/mem2.jpg',
-        '/mem3.jpg',
-        '/mem4.jpg',
+        'mem1.jpg',
+        'mem2.jpg',
+        'mem3.jpg',
+        'mem4.jpg',
     ]
 
     return (

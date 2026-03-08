@@ -8,7 +8,7 @@ export default function WrongPasswordScreen({ onRetry }) {
                 <div className="relative text-center">
                     <div className="mb-6">
                         <img
-                            src="/wrong-pass.jpg"
+                            src="wrong-pass.jpg"
                             alt="Thoughtful face"
                             className="w-36 h-36 mx-auto rounded-full object-cover border-4 border-pink-500 shadow-lg shadow-pink-500/40 animate-pulse"
                         />

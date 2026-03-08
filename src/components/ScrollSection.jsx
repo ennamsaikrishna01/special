@@ -55,7 +55,7 @@ export default function ScrollSection() {
             <div className="sticky top-0 h-screen w-full overflow-hidden">
                 {/* Main photo */}
                 <img
-                    src="/main.jpg"
+                    src="main.jpg"
                     alt="Raksha Bandhan"
                     className="absolute top-0 left-0 w-full h-full object-cover object-center z-10"
                 />
